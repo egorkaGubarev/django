@@ -1,12 +1,12 @@
 from django.db import models
 
 
-class Term(models.Model):
-    termid = models.AutoField(db_column='termId', primary_key=True)
-    term = models.TextField()
-    definition = models.TextField()
-    author = models.TextField()
+class Star(models.Model):
+    star = models.TextField(primary_key=True)
+    type = models.TextField()
+    magnitude = models.FloatField()
+    constellation = models.TextField()
 
     class Meta:
         managed = False
-        db_table = 'Terms'
+        db_table = 'Stars'

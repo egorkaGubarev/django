@@ -1,4 +1,4 @@
 from django.contrib import admin
-from proj_maths.models import Term
+from proj_maths.models import Star
 
-admin.site.register(Term)
+admin.site.register(Star)

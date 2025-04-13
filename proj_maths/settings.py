@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'proj_maths.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'data/maths-site.db',
+        'NAME': BASE_DIR / 'data/astron.db',
     }
 }
 

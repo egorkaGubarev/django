@@ -20,8 +20,11 @@ def send_star(request):
     star_type = request.POST.get("type")
     magnitude = request.POST.get("magnitude")
     constellation = request.POST.get("constellation")
-    context = {"success": True, "comment": "Звезда добавлена"}
-    db_stars.db_write_star(star_name, star_type, magnitude, constellation)
+    if magnitude.isdigit():
+        context = {"success": True, "comment": "Звезда добавлена"}
+        db_stars.db_write_star(star_name, star_type, magnitude, constellation)
+    else:
+        context = {"success": False, "comment": "Величина должна быть числом"}
     return render(request, "star_request.html", context)
 
 def show_stats(request):

@@ -1,0 +1,39 @@
+{% extends "base_page.html" %}
+
+{% block page-title %}
+Викторина
+{% endblock %}
+
+{% block page-lead %}
+Укажите названия созвездий, в которых находятся звёзды
+{% endblock %}
+
+{% block content %}
+<div class="container px-4 py-5" id="terms-table">
+    <form method="post">
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th scope="col" class="py-3">Звезда</th>
+              <th scope="col" class="py-3">Созвездие</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for q_id, question in questions.items %}
+            <tr>
+                <td class="py-3">{{ question.text }}</td>
+                <td class="py-3">
+                  <input type="text" class="form-control input-lg" name="{{ q_id }}" id="{{ q_id }}" value required>
+                </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-primary">Проверить</button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

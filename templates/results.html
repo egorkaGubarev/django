@@ -1,0 +1,27 @@
+{% extends "base_page.html" %}
+
+{% block page-title %}
+Результаты
+{% endblock %}
+
+{% block content %}
+<div class="container-sm px-5 py-5" id="term-form-result">
+    <p>Правильных ответов: {{ correct }} из {{ total }} ({{ percentage }}%)</p>
+
+<ul>
+    {% for q_id, question in results.items %}
+        <li>
+            <strong>{{ question.text }}</strong><br>
+            Ваш ответ: {{ question.user_answer }}<br>
+            Правильный ответ: {{ question.correct_answer }}<br>
+            {% if question.user_answer|lower == question.correct_answer|lower %}
+                ✅ Верно
+            {% else %}
+                ❌ Неверно
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+    <p>Вернуться на <a href="/">главную</a></p>
+</div>
+{% endblock %}

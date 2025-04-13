@@ -11,4 +11,7 @@ urlpatterns = [
     path('add-term', views.add_term),
     path('send-term', views.send_term),
     path('stats', views.show_stats),
+    path('result', views.result),
+    path('game', views.quiz_view),
+    path('results', views.results_view),
 ]

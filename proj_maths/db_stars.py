@@ -23,12 +23,12 @@ def db_get_star_stats():
     }
     return stats
 
-def create_questions(amount=2):
+def create_questions(amount=5):
     stars = np.array(Star.objects.all())
     rng = np.random.default_rng()
     numbers = rng.choice(len(stars), size=amount, replace=False)
     stars_in_game = stars[numbers]
-    questions = {'q' + str(i): {'text': stars_in_game[i].star,
+    questions = {'q_' + str(i): {'text': stars_in_game[i].star,
                                 'correct_answer': stars_in_game[i].constellation,
                                 'user_answer': None} for i in range(amount)}
     return questions

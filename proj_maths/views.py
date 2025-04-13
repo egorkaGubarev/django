@@ -43,17 +43,19 @@ def result(request):
     return render(request, "results.html", context={'constellations': constellations})
 
 def quiz_view(request):
-    questions = create_questions()
+    if request.method == 'GET':
+        questions = create_questions()
+        request.session['questions'] = questions
+        return render(request, 'quiz.html', {'questions': questions})
 
     if request.method == 'POST':
+        questions = request.session['questions']
         for q_id in questions:
             user_answer = request.POST.get(q_id, '').strip()
             questions[q_id]['user_answer'] = user_answer
 
         request.session['quiz_results'] = questions
         return redirect('/results')
-
-    return render(request, 'quiz.html', {'questions': questions})
 
 def results_view(request):
     results = request.session.get('quiz_results', {})

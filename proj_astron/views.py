@@ -1,30 +1,20 @@
 from django.shortcuts import render, redirect
 from django.core.cache import cache
-from proj_maths import db_stars
-from proj_maths.db_stars import create_questions
+from proj_astron import db_stars
+from proj_astron.db_stars import create_questions
 
-
-def hello(request, name='Unknown User'):
-    name_provided = False
-    if request.method == 'GET' and 'my_input' in request.GET:
-        name = request.GET['my_input']
-        name_provided = True
-    return render(request, 'hello.html', context={'name': name, 'name_provided': name_provided})
 
 def index(request):
     return render(request, "index.html")
 
-
-def terms_list(request):
+def stars_list(request):
     stars = db_stars.db_get_stars_for_table()
-    return render(request, "term_list.html", context={"stars": stars})
+    return render(request, "stars_list.html", context={"stars": stars})
 
+def add_star(request):
+    return render(request, "star_add.html")
 
-def add_term(request):
-    return render(request, "term_add.html")
-
-
-def send_term(request):
+def send_star(request):
     cache.clear()
     star_name = request.POST.get("star_name")
     star_type = request.POST.get("type")
@@ -32,15 +22,10 @@ def send_term(request):
     constellation = request.POST.get("constellation")
     context = {"success": True, "comment": "Звезда добавлена"}
     db_stars.db_write_star(star_name, star_type, magnitude, constellation)
-    return render(request, "term_request.html", context)
+    return render(request, "star_request.html", context)
 
 def show_stats(request):
-    stats = db_stars.db_get_star_stats()
-    return render(request, "stats.html", context={'stats': stats})
-
-def result(request):
-    constellations = request.POST.get('constellationКохаб')
-    return render(request, "results.html", context={'constellations': constellations})
+    return render(request, "stats.html", context={'stats': db_stars.db_get_star_stats()})
 
 def quiz_view(request):
     if request.method == 'GET':
